@@ -1,9 +1,5 @@
 import { createStore } from 'redux'
 import createGameBoardMatrix from '../functions/setCharacterOnFreePosition'
-
-
-
-
 const store = createStore(
   function (state, action) {
     if (action.type === 'game-state-change') {
