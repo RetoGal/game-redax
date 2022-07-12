@@ -16,6 +16,9 @@ const moveRabbit = (arr, x, y) => {
     alert('gameOver')
   } else if (arr[x][y] === CHARACTER_PARAMS.home.name) {
     alert('youWon')
+  }else if(arr[x][y] === CHARACTER_PARAMS.ban.name){
+    arr[rabbitX][rabbitY] = CHARACTER_PARAMS.rabbit.name
+    arr[x][y] = CHARACTER_PARAMS.ban.name
   }
 
   moveWolvesOnNewBox(arr)

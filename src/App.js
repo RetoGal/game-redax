@@ -12,10 +12,10 @@ const SELECT_OPTION_VALUE = [5, 7, 10]
 const getGameArray = (state) => state.gameState.gameArr
 
 const App = () => {
-  const currentGameState = useSelector(getGameArray)
-  const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
+  const currentGameState = useSelector(getGameArray)
+  const dispatch = useDispatch()
 
   return (
     <>
