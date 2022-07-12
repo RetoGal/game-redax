@@ -1,17 +1,17 @@
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
 import gameMovement from './functions/gameMove'
-import { DirectionButons, DivForDirectionButtons} from './styled'
+import { DirectionButons, DivForDirectionButtons } from './styled'
 
 const buttonsDirection = ['up', 'right', 'left', 'down']
 
 function App() {
   const status = useSelector(function (state) {
-    console.log(state)
+    console.log(state.gameState.gameArr)
     return state.gameState.gameArr
   })
-
   const dispatch = useDispatch()
+
   return (
     <>
       <h2> {status}</h2>
@@ -23,7 +23,7 @@ function App() {
               key={direction}
               onClick={() =>
                 dispatch({
-                  type: 'game-state-change',
+                  type: 'change-game-state',
                   payload: {
                     gameArr: gameMovement(direction, status),
                   },

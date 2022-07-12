@@ -1,4 +1,4 @@
-import { CHARACTER_PARAMS } from "./objCaracterParams"
+import { CHARACTER_PARAMS } from './objCaracterParams'
 
 const FREE_CELL = 0
 

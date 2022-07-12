@@ -1,5 +1,4 @@
 const getCordinatesOfCharacter = (arr, character) => {
-
   const cordsCharacter = []
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr.length; y++) {

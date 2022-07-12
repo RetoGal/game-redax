@@ -5,10 +5,7 @@ import { CHARACTER_PARAMS } from './objCaracterParams'
 
 const getSidesLengthThreeAngle = (arr, [x, y]) => {
   const sidesWolf = getFreeBoxNextToWolf(arr, [x, y])
-  const cordRabbit = getCordinatesOfCharacter(
-    arr,
-    CHARACTER_PARAMS.rabbit.name
-  )
+  const cordRabbit = getCordinatesOfCharacter(arr, CHARACTER_PARAMS.rabbit.name)
   return sidesWolf.map((item) => calculateDistance(item, cordRabbit[0]))
 }
 

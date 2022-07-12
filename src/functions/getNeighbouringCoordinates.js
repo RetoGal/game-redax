@@ -1,8 +1,5 @@
 const isInRange = (arr, [x, y]) =>
-  x >= 0 &&
-  x < arr.length &&
-  y >= 0 &&
-  y < arr.length
+  x >= 0 && x < arr.length && y >= 0 && y < arr.length
 
 const getNeighbouringCoordinates = (arr, [x, y]) => {
   const cells = [
