@@ -10,6 +10,7 @@ const store = createStore(
       return {
         ...state,
         gameState: {
+          
           gameArr: action.payload.gameArr,
         },
       }

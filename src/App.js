@@ -4,6 +4,7 @@ import gameMovement from './functions/gameMove'
 
 function App() {
   const status = useSelector(function (state) {
+    console.log(state)
       return state.gameState.gameArr
   })
 
