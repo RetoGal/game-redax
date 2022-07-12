@@ -1,7 +1,6 @@
 import { CHARACTER_PARAMS } from './objCaracterParams'
 import getCordinatesOfCharacter from './getCordinatesOfCharacter'
 import moveRabbit from './moveRabbit'
-import moveWolvesOnNewBox from './moveWolvesOnNewBox'
 
 const gameMovement = (direction, array) => {
   const cordinateOfCharacter = getCordinatesOfCharacter(
