@@ -14,5 +14,5 @@ export const DivGameWrapper = styled.div`
   background-color: #ffdafa;
   border-radius: 30px;
   padding: 20px;
-  width: ${(props) => props.matrixLength * 70 + 20 + 'px'};
+  width: ${(props) => props.matrix.length * 70 + 20 + 'px'};
 `

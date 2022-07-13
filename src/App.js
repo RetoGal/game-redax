@@ -5,17 +5,51 @@ import { useState } from 'react'
 import createGameBoardMatrix from './functions/setCharacterOnFreePosition'
 import GameWrapper from './wrapper/gameWrapper'
 import gameMovement from './functions/gameMove'
+import GameStatusMessage from './gameMessage/gameMessage'
 
 const buttonsDirection = ['up', 'right', 'left', 'down']
 const SELECT_OPTION_VALUE = [5, 7, 10]
 
-const getGameArray = (state) => state.gameState.gameArr
+const getGameState = (state) => state.gameState
 
 const App = () => {
+  const currentGameState = useSelector(getGameState)
+  const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
-  const currentGameState = useSelector(getGameArray)
-  const dispatch = useDispatch()
+  console.log(currentGameState)
+  const dispatchCurrentMatrix = (direction, currentGameState) => {
+    const gameState = gameMovement(direction, { ...currentGameState })
+    if (gameState.theResultOfTheGame === 'gameOver') {
+      dispatch({
+        type: 'change-game-state',
+        payload: {
+          matrix: [],
+          theGameContinues: false,
+          theResultOfTheGame: 'gameOver',
+        },
+      })
+    } else if (gameState.theResultOfTheGame === 'youWon') {
+      dispatch({
+        type: 'change-game-state',
+        payload: {
+          matrix: [],
+          theGameContinues: false,
+          theResultOfTheGame: 'youWon',
+        },
+      })
+    } else if (gameState.theGameContinues === true) {
+      dispatch({
+        type: 'change-game-state',
+        payload: {
+          matrix: gameState.matrix,
+          theGameContinues: true,
+          theResultOfTheGame: '',
+        },
+      })
+    }
+
+  }
 
   return (
     <>
@@ -25,7 +59,9 @@ const App = () => {
           dispatch({
             type: 'change-game-state',
             payload: {
-              gameArr: createGameBoardMatrix(optionValue),
+              matrix: createGameBoardMatrix(optionValue),
+              theGameContinues: true,
+              theResultOfTheGame: '',
             },
           })
         }}
@@ -39,8 +75,14 @@ const App = () => {
           </option>
         ))}
       </SelectGameBoard>
+      
 
-      <GameWrapper currentGameState={currentGameState} />
+      {currentGameState.theGameContinues === false ? (
+        <GameStatusMessage matrix={currentGameState} />
+      ) : (
+        <GameWrapper matrix={currentGameState.matrix} />
+      )}
+
 
       <DivForDirectionButtons>
         {buttonsDirection.map((direction) => {
@@ -48,14 +90,7 @@ const App = () => {
             <DirectionButons
               direction={direction}
               key={direction}
-              onClick={() =>
-                dispatch({
-                  type: 'change-game-state',
-                  payload: {
-                    gameArr: gameMovement(direction, [...currentGameState]),
-                  },
-                })
-              }
+              onClick={() => dispatchCurrentMatrix(direction, currentGameState)}
             >
               {direction}
             </DirectionButons>

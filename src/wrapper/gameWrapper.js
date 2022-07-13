@@ -1,11 +1,11 @@
 import { DivGameWrapper, DivСellСharacter } from './wrapperStyles'
 import GameBoard from '../gameBoard/gameBoard'
 const GameWrapper = (props) => {
-  const gameState = props.currentGameState
-  console.log(props.currentGameState)
+  const matrix = props.matrix
+
   return (
-    <DivGameWrapper matrixLength={gameState.length}>
-      {gameState.map((row) =>
+    <DivGameWrapper matrix={matrix}>
+      {matrix.map((row) =>
         row.map((cell, i) => {
           return (
             <DivСellСharacter key={i}>

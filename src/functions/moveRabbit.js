@@ -3,26 +3,27 @@ import { CHARACTER_PARAMS } from './objCaracterParams'
 import moveWolvesOnNewBox from './moveWolvesOnNewBox'
 
 const FREE_CELL = 0
-const moveRabbit = (arr, x, y) => {
+const moveRabbit = (gameState, x, y) => {
+  const matrix = gameState.matrix
   const cordinateOfRabbit = getCordinatesOfCharacter(
-    arr,
+    gameState,
     CHARACTER_PARAMS.rabbit.name
   )
   const [rabbitX, rabbitY] = cordinateOfRabbit[0]
-  arr[rabbitX][rabbitY] = FREE_CELL
-  if (arr[x][y] === FREE_CELL) {
-    arr[x][y] = CHARACTER_PARAMS.rabbit.name
-  } else if (arr[x][y] === CHARACTER_PARAMS.wolf.name) {
-    alert('gameOver')
-  } else if (arr[x][y] === CHARACTER_PARAMS.home.name) {
-    alert('youWon')
-  }else if(arr[x][y] === CHARACTER_PARAMS.ban.name){
-    arr[rabbitX][rabbitY] = CHARACTER_PARAMS.rabbit.name
-
+  matrix[rabbitX][rabbitY] = FREE_CELL
+  if (matrix[x][y] === FREE_CELL) {
+    matrix[x][y] = CHARACTER_PARAMS.rabbit.name
+  } else if (matrix[x][y] === CHARACTER_PARAMS.wolf.name) {
+    gameState.theGameContinues = false
+    gameState.theResultOfTheGame = 'gameOver'
+  } else if (matrix[x][y] === CHARACTER_PARAMS.home.name) {
+    gameState.theGameContinues = false
+    gameState.theResultOfTheGame = 'youWon'
+  } else if (matrix[x][y] === CHARACTER_PARAMS.ban.name) {
+    matrix[rabbitX][rabbitY] = CHARACTER_PARAMS.rabbit.name
+    matrix[x][y] = CHARACTER_PARAMS.ban.name
   }
-
-  moveWolvesOnNewBox(arr)
-  return arr
+  return gameState
 }
 
 export default moveRabbit
