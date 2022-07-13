@@ -17,8 +17,19 @@ const App = () => {
   const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
-  console.log(currentGameState)
-  const dispatchCurrentMatrix = (direction, currentGameState) => {
+
+  const AddGameState = () => {
+    dispatch({
+      type: 'change-game-state',
+      payload: {
+        matrix: createGameBoardMatrix(optionValue),
+        theGameContinues: true,
+        theResultOfTheGame: '',
+      },
+    })
+  }
+
+  const dispatchCurrentGameState = (direction, currentGameState) => {
     const gameState = gameMovement(direction, { ...currentGameState })
     if (gameState.theResultOfTheGame === 'gameOver') {
       dispatch({
@@ -48,24 +59,11 @@ const App = () => {
         },
       })
     }
-
   }
 
   return (
     <>
-      <StartGameButton
-        key={'startBtn'}
-        onClick={() => {
-          dispatch({
-            type: 'change-game-state',
-            payload: {
-              matrix: createGameBoardMatrix(optionValue),
-              theGameContinues: true,
-              theResultOfTheGame: '',
-            },
-          })
-        }}
-      >
+      <StartGameButton key={'startBtn'} onClick={() => AddGameState()}>
         START
       </StartGameButton>
       <SelectGameBoard onChange={selectChange}>
@@ -75,7 +73,6 @@ const App = () => {
           </option>
         ))}
       </SelectGameBoard>
-      
 
       {currentGameState.theGameContinues === false ? (
         <GameStatusMessage matrix={currentGameState} />
@@ -83,14 +80,15 @@ const App = () => {
         <GameWrapper matrix={currentGameState.matrix} />
       )}
 
-
       <DivForDirectionButtons>
         {buttonsDirection.map((direction) => {
           return (
             <DirectionButons
               direction={direction}
               key={direction}
-              onClick={() => dispatchCurrentMatrix(direction, currentGameState)}
+              onClick={() =>
+                dispatchCurrentGameState(direction, currentGameState)
+              }
             >
               {direction}
             </DirectionButons>
