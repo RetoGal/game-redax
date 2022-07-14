@@ -28,39 +28,18 @@ const App = () => {
       },
     })
   }
-
   const dispatchCurrentGameState = (direction, currentGameState) => {
     const gameState = gameMovement(direction, { ...currentGameState })
-    if (gameState.theResultOfTheGame === 'gameOver') {
-      dispatch({
-        type: 'change-game-state',
-        payload: {
-          matrix: [],
-          theGameContinues: false,
-          theResultOfTheGame: 'gameOver',
-        },
-      })
-    } else if (gameState.theResultOfTheGame === 'youWon') {
-      dispatch({
-        type: 'change-game-state',
-        payload: {
-          matrix: [],
-          theGameContinues: false,
-          theResultOfTheGame: 'youWon',
-        },
-      })
-    } else if (gameState.theGameContinues === true) {
-      dispatch({
-        type: 'change-game-state',
-        payload: {
-          matrix: gameState.matrix,
-          theGameContinues: true,
-          theResultOfTheGame: '',
-        },
-      })
-    }
-  }
 
+    dispatch({
+      type: 'change-game-state',
+      payload: {
+        matrix: gameState.matrix,
+        theGameContinues: gameState.theGameContinues,
+        theResultOfTheGame: gameState.theResultOfTheGame,
+      },
+    })
+  }
   return (
     <>
       <StartGameButton key={'startBtn'} onClick={() => AddGameState()}>

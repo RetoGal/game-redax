@@ -11,7 +11,7 @@ const reducer = (state, action) => {
   if (action.type === 'change-game-state') {
     return {
       ...state,
-      gameState: {
+        gameState: {
         matrix: action.payload.matrix,
         theGameContinues : action.payload.theGameContinues,
         theResultOfTheGame : action.payload.theResultOfTheGame,

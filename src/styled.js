@@ -60,5 +60,4 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: center;
     background-color: rgb(104, 150, 150);
   }
-  
   `
