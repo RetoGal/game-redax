@@ -6,6 +6,7 @@ import createGameBoardMatrix from './functions/setCharacterOnFreePosition'
 import GameWrapper from './wrapper/gameWrapper'
 import gameMovement from './functions/gameMove'
 import GameStatusMessage from './gameMessage/gameMessage'
+import { NewGameAreaButton } from './styled'
 
 const buttonsDirection = ['up', 'right', 'left', 'down']
 const SELECT_OPTION_VALUE = [5, 7, 10]
@@ -17,22 +18,24 @@ const App = () => {
   const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
-
+ 
   const AddGameState = () => {
+    
     dispatch({
-      type: 'change-game-state',
+      type: 'change-current-game-state',
       payload: {
         matrix: createGameBoardMatrix(optionValue),
         theGameContinues: true,
         theResultOfTheGame: '',
+      
       },
     })
   }
   const dispatchCurrentGameState = (direction, currentGameState) => {
     const gameState = gameMovement(direction, { ...currentGameState })
-
+  
     dispatch({
-      type: 'change-game-state',
+      type: 'change-current-game-state',
       payload: {
         matrix: gameState.matrix,
         theGameContinues: gameState.theGameContinues,
@@ -41,7 +44,10 @@ const App = () => {
     })
   }
   return (
+  
     <>
+      <NewGameAreaButton >New Game</NewGameAreaButton>
+
       <StartGameButton key={'startBtn'} onClick={() => AddGameState()}>
         START
       </StartGameButton>

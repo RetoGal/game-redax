@@ -3,7 +3,6 @@ import { ImgCharacters } from './stylesForGameBoard'
 const FREE_CELL = 0
 
 const GameBoard = (props) => {
-
   if (props.cell === FREE_CELL) {
     return
   }

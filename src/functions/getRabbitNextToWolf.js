@@ -1,7 +1,7 @@
 import getNeighbouringCoordinates from './getNeighbouringCoordinates'
 import { CHARACTER_PARAMS } from './objCaracterParams'
 
-function getRabbitNextToWolf(gameState, [x, y]) {
+const getRabbitNextToWolf = (gameState, [x, y]) => {
   const matrix = gameState.matrix
   const sidesWolf = getNeighbouringCoordinates(gameState, [x, y])
   sidesWolf.forEach((freeCell) => {
@@ -12,8 +12,6 @@ function getRabbitNextToWolf(gameState, [x, y]) {
     if (matrix[x][y] === CHARACTER_PARAMS.rabbit.name) {
       gameState.theGameContinues = false
       gameState.theResultOfTheGame = 'gameOver'
-
-
     }
   })
 }
