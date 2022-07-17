@@ -1,7 +1,9 @@
 import { DivGameWrapper, DivСellСharacter } from './wrapperStyles'
 import GameBoard from '../gameBoard/gameBoard'
-const GameWrapper = (props) => {
-  const matrix = props.matrix
+
+const GameWrapper = ({currentGameState}) => {
+  console.log(currentGameState,1)
+const matrix =  currentGameState.matrix
 
   return (
     <DivGameWrapper matrix={matrix}>
@@ -18,4 +20,4 @@ const GameWrapper = (props) => {
   )
 }
 
-export default GameWrapper
+export {GameWrapper}

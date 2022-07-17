@@ -1,49 +1,54 @@
 import { createStore } from 'redux'
+const initialState = []
 
-const initialState = {
-  gameState: {
-    matrix: [],
-    theGameContinues: false,
-    theResultOfTheGame: '',
-  },
+export const gameNewBoard = {
+  matrix: [],
+  theGameContinues: false,
+  theResultOfTheGame: '',
+  gameBoardNumber: 5,
 }
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'set-game-state':
-      return {
-        ...state,
-        gameState: {
-          matrix: action.payload.matrix,
-          theGameContinues: action.payload.theGameContinues,
-          theResultOfTheGame: action.payload.theResultOfTheGame,
-        },
-      }
-      break
-    case 'change-current-game-state':
-      return {
-        ...state,
-        gameState: {
-          matrix: action.payload.matrix,
-          theGameContinues: action.payload.theGameContinues,
-          theResultOfTheGame: action.payload.theResultOfTheGame,
-        },
-      }
-      break
-      
-    default:
+
+export const startGame = (state, action) => {
+  const { gameBoardNumber } = action.payload
+  state[gameBoardNumber] = {
+    ...state[gameBoardNumber],
+    matrix: action.payload.matrix,
+    theGameContinues: action.payload.theGameContinues,
+    theResultOfTheGame: action.payload.theResultOfTheGame,
+    gameBoardNumber: action.payload.gameBoardNumber,
   }
 
-  return state
+  return [...state]
+}
+
+const gameBoardsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'create-new-game-board':
+      return [...state, { ...gameNewBoard }]
+      break
+    case 'set-game-board':
+      startGame(state, action)
+    case 'change-current-game-state':
+      const { gameBoardNumber } = action.payload
+      state[gameBoardNumber] = {
+        ...state[gameBoardNumber],
+        matrix: action.payload.matrix,
+        theGameContinues: action.payload.theGameContinues,
+        theResultOfTheGame: action.payload.theResultOfTheGame,
+        gameBoardNumber: action.payload.gameBoardNumber,
+      }
+
+    default:
+      return [...state]
+  }
 }
 
 const store = createStore(
-  reducer,
+  gameBoardsReducer,
   initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : undefined
 )
-
-
 
 export default store

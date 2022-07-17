@@ -1,11 +1,11 @@
 import React from 'react'
 import { GameResultMessage } from './stylesForGameMessage'
 
-const GameStatusMessage = (props) => (
+const GameStatusMessage = ({currentGameState}) => (
   <GameResultMessage>
-    {props.matrix.theResultOfTheGame === 'youWon'
+    {currentGameState.theResultOfTheGame === 'youWon'
       ? 'CONGRATULATIONS!! YOU WON'
-      : props.matrix.theResultOfTheGame === 'gameOver'
+      : currentGameState.theResultOfTheGame === 'gameOver'
       ? 'YOU LOST'
       : ''}
   </GameResultMessage>
