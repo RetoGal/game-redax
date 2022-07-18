@@ -8,7 +8,7 @@ export const gameNewBoard = {
   gameBoardNumber: 5,
 }
 
-export const startGame = (state, action) => {
+const startGame = (state, action) => {
   const { gameBoardNumber } = action.payload
   state[gameBoardNumber] = {
     ...state[gameBoardNumber],
@@ -21,23 +21,27 @@ export const startGame = (state, action) => {
   return [...state]
 }
 
+const changeCurrentGameState = (state, action) => {
+  const { gameBoardNumber } = action.payload
+  state[gameBoardNumber] = {
+    ...state[gameBoardNumber],
+    matrix: action.payload.matrix,
+    theGameContinues: action.payload.theGameContinues,
+    theResultOfTheGame: action.payload.theResultOfTheGame,
+    gameBoardNumber: action.payload.gameBoardNumber,
+  }
+}
+
 const gameBoardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'create-new-game-board':
       return [...state, { ...gameNewBoard }]
       break
     case 'set-game-board':
-      startGame(state, action)
+      return startGame(state, action)
+      break
     case 'change-current-game-state':
-      const { gameBoardNumber } = action.payload
-      state[gameBoardNumber] = {
-        ...state[gameBoardNumber],
-        matrix: action.payload.matrix,
-        theGameContinues: action.payload.theGameContinues,
-        theResultOfTheGame: action.payload.theResultOfTheGame,
-        gameBoardNumber: action.payload.gameBoardNumber,
-      }
-
+      changeCurrentGameState(state, action)
     default:
       return [...state]
   }

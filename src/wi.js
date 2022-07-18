@@ -18,22 +18,20 @@ const App = () => {
   const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
- 
+
   const AddGameState = () => {
-    
     dispatch({
       type: 'change-current-game-state',
       payload: {
         matrix: createGameBoardMatrix(optionValue),
         theGameContinues: true,
         theResultOfTheGame: '',
-      
       },
     })
   }
   const dispatchCurrentGameState = (direction, currentGameState) => {
     const gameState = gameMovement(direction, { ...currentGameState })
-  
+
     dispatch({
       type: 'change-current-game-state',
       payload: {
@@ -44,9 +42,8 @@ const App = () => {
     })
   }
   return (
-  
     <>
-      <NewGameAreaButton >New Game</NewGameAreaButton>
+      <NewGameAreaButton>New Game</NewGameAreaButton>
 
       <StartGameButton key={'startBtn'} onClick={() => AddGameState()}>
         START

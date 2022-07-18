@@ -16,7 +16,7 @@ const getGameState = (state) => state
 
 const App = () => {
   const currentGameState = useSelector(getGameState)
-  console.log(currentGameState)
+
   const dispatch = useDispatch()
   const [optionValue, setOptionValue] = useState(SELECT_OPTION_VALUE[0])
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
@@ -25,8 +25,6 @@ const App = () => {
       type: 'create-new-game-board',
     })
   }
-
-
 
   return (
     <>
@@ -65,12 +63,10 @@ const App = () => {
             </StartGameButton>
 
             {currentGameState[i].theGameContinues === false ? (
-        <GameStatusMessage currentGameState={currentGameState[i]} />
-      ) : (
-        <GameWrapper currentGameState={currentGameState[i]} />
-      )}
-
-        
+              <GameStatusMessage currentGameState={currentGameState[i]} />
+            ) : (
+              <GameWrapper currentGameState={currentGameState[i]} />
+            )}
 
             <DivForDirectionButtons>
               {buttonsDirection.map((direction) => {
@@ -80,19 +76,17 @@ const App = () => {
                     key={direction}
                     onClick={() => {
                       const game = gameMovement(direction, { ...gameState })
-  
+
                       dispatch({
                         type: 'change-current-game-state',
                         payload: {
                           matrix: game.matrix,
                           theGameContinues: game.theGameContinues,
                           theResultOfTheGame: game.theResultOfTheGame,
-                          gameBoardNumber : game.gameBoardNumber
+                          gameBoardNumber: game.gameBoardNumber,
                         },
                       })
-                    }
-                     
-                    }
+                    }}
                   >
                     {direction}
                   </DirectionButons>

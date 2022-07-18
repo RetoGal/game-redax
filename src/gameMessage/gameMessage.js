@@ -1,7 +1,7 @@
 import React from 'react'
 import { GameResultMessage } from './stylesForGameMessage'
 
-const GameStatusMessage = ({currentGameState}) => (
+const GameStatusMessage = ({ currentGameState }) => (
   <GameResultMessage>
     {currentGameState.theResultOfTheGame === 'youWon'
       ? 'CONGRATULATIONS!! YOU WON'
