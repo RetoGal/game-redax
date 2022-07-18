@@ -7,10 +7,13 @@ import { GameWrapper } from './wrapper/gameWrapper'
 import gameMovement from './functions/gameMove'
 import GameStatusMessage from './gameMessage/gameMessage'
 import { NewGameAreaButton } from './styled'
-import { gameNewBoard } from './redux/store'
-
-const buttonsDirection = ['up', 'right', 'left', 'down']
-const SELECT_OPTION_VALUE = [5, 7, 10]
+import {
+  CREATE_NEW_GAME_BOARD,
+  SET_GAME_BOARD,
+  CHANGE_CURRENT_GAME_STATE,
+  BUTTONS_DIRECTION,
+  SELECT_OPTION_VALUE,
+} from './config'
 
 const getGameState = (state) => state
 
@@ -22,7 +25,7 @@ const App = () => {
   const selectChange = (e) => setOptionValue(parseInt(e.target.value))
   const createNewGameBoard = () => {
     dispatch({
-      type: 'create-new-game-board',
+      type: CREATE_NEW_GAME_BOARD,
     })
   }
 
@@ -39,8 +42,8 @@ const App = () => {
         return (
           <div key={i}>
             <SelectGameBoard key={i} onChange={selectChange}>
-              {SELECT_OPTION_VALUE.map((optionValue) => (
-                <option key={optionValue} value={optionValue}>
+              {SELECT_OPTION_VALUE.map((optionValue, index) => (
+                <option key={index} value={optionValue}>
                   {optionValue}*{optionValue}
                 </option>
               ))}
@@ -49,7 +52,7 @@ const App = () => {
               key={i}
               onClick={() => {
                 dispatch({
-                  type: 'set-game-board',
+                  type: SET_GAME_BOARD,
                   payload: {
                     matrix: createGameBoardMatrix(optionValue),
                     theGameContinues: true,
@@ -63,22 +66,25 @@ const App = () => {
             </StartGameButton>
 
             {currentGameState[i].theGameContinues === false ? (
-              <GameStatusMessage currentGameState={currentGameState[i]} />
+              <GameStatusMessage
+                currentGameState={currentGameState[i]}
+                key={i}
+              />
             ) : (
-              <GameWrapper currentGameState={currentGameState[i]} />
+              <GameWrapper currentGameState={currentGameState[i]} key={i} />
             )}
 
-            <DivForDirectionButtons>
-              {buttonsDirection.map((direction) => {
+            <DivForDirectionButtons key={i}>
+              {BUTTONS_DIRECTION.map((direction, u) => {
                 return (
                   <DirectionButons
                     direction={direction}
-                    key={direction}
+                    key={u}
                     onClick={() => {
                       const game = gameMovement(direction, { ...gameState })
 
                       dispatch({
-                        type: 'change-current-game-state',
+                        type: CHANGE_CURRENT_GAME_STATE,
                         payload: {
                           matrix: game.matrix,
                           theGameContinues: game.theGameContinues,

@@ -1,11 +1,16 @@
 import { createStore } from 'redux'
+import {
+  CREATE_NEW_GAME_BOARD,
+  SET_GAME_BOARD,
+  CHANGE_CURRENT_GAME_STATE,
+} from '../config'
 const initialState = []
 
 export const gameNewBoard = {
   matrix: [],
   theGameContinues: false,
   theResultOfTheGame: '',
-  gameBoardNumber: 5,
+  gameBoardNumber: '',
 }
 
 const startGame = (state, action) => {
@@ -17,7 +22,6 @@ const startGame = (state, action) => {
     theResultOfTheGame: action.payload.theResultOfTheGame,
     gameBoardNumber: action.payload.gameBoardNumber,
   }
-
   return [...state]
 }
 
@@ -30,18 +34,20 @@ const changeCurrentGameState = (state, action) => {
     theResultOfTheGame: action.payload.theResultOfTheGame,
     gameBoardNumber: action.payload.gameBoardNumber,
   }
+  return [...state]
 }
 
 const gameBoardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'create-new-game-board':
+    case CREATE_NEW_GAME_BOARD:
       return [...state, { ...gameNewBoard }]
       break
-    case 'set-game-board':
+    case SET_GAME_BOARD:
       return startGame(state, action)
       break
-    case 'change-current-game-state':
-      changeCurrentGameState(state, action)
+    case CHANGE_CURRENT_GAME_STATE:
+      return changeCurrentGameState(state, action)
+      break
     default:
       return [...state]
   }
